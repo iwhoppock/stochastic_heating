@@ -546,7 +546,7 @@ int main(){
       update_matrix(V,v,particle);
       /* //This prints all partices in phase space -- a massive amount of data !!
       if (ts%2==0){
-          fprintf(fout1,"%d, %g, %g, %g, %g, %g, %g, %g\n",particle,ts*dt,x[0],x[1],x[2],v[0],v[1],v[2]);
+				fprintf(fout1,"%d, %g, %g, %g, %g, %g, %g, %g\n",particle,ts*dt,x[0],x[1],x[2],v[0],v[1],v[2]);
       }
       //*/
       /*
@@ -560,11 +560,11 @@ int main(){
     }
     ///*
     //MEAN VELOCITY SQUARE PER TIME STEP: (nb if (ts * dt > 100 && ts%2 == 0))
-    //if (ts%2 == 0){
-        double rms[2];
-        get_rms(V,rms);
-        fprintf(fout1,"%g, %g, %g\n",ts*dt,rms[0],rms[1]);
-    //}
+    if (ts%2 == 0){
+			double rms[2];
+			get_rms(V,rms);
+			fprintf(fout1,"%g, %g, %g\n",ts*dt,rms[0],rms[1]);
+    }
     //*/
   }
   fclose(fout1);
