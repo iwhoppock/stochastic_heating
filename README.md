@@ -5,6 +5,10 @@ This implements the Boris pusher to move the particles through phase space.
 
 ## Overview
 
+See these papers for backgroud information:
+
+* [Perpendicular Ion Heating by Low-Frequency Alfven-Wave Turbulence in the Solar Wind ](https://arxiv.org/pdf/1001.2069.pdf)
+* [Stochastic Proton Heating by Kinetic-Alfven-Wave Turbulence in Moderately High-Beta Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
 
 ### Dependencies
 
