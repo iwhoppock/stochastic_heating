@@ -128,19 +128,15 @@ void get_fields(double E[3], double B[3], double x[3]){
   E[0] = 0.;
   E[1] = 0.;
   E[2] = 0.;
-  ///*
   B[0] = 0.;
   B[1] = 0.;
   B[2] = 1.;
-  //*/
-  //Magnetic dipole:
-  /*
-  double position_mag = sqrt(dot_product(x,x));
-  const double m = 1000.; //magnetic moment
-  B[0] = (3 * m * x[0] * x[2]) / (position_mag * position_mag * position_mag * position_mag * position_mag);
-  B[1] = (3 * m * x[1] * x[2]) / (position_mag * position_mag * position_mag * position_mag * position_mag);
-  B[2] = ((m) / (position_mag * position_mag * position_mag)) * (( (3 * x[2] * x[2]) / (position_mag * position_mag) ) - 1);
-  */
+  // Magnetic dipole:
+  // double position_mag = sqrt(dot_product(x,x));
+  // const double m = 1000.; //magnetic moment
+  // B[0] = (3 * m * x[0] * x[2]) / (position_mag * position_mag * position_mag * position_mag * position_mag);
+  // B[1] = (3 * m * x[1] * x[2]) / (position_mag * position_mag * position_mag * position_mag * position_mag);
+  // B[2] = ((m) / (position_mag * position_mag * position_mag)) * (( (3 * x[2] * x[2]) / (position_mag * position_mag) ) - 1);
 }
 
 void get_bhat(double B[3], double bhat[3]){
@@ -303,8 +299,6 @@ void KAW(double x[3], double E[3], double B[3], double dt, int ts, double random
       }
     }
   }
-
-  ///*
   //Parallel electric field CORRECTION
   double bhat[3];
   get_bhat(B,bhat);
@@ -313,7 +307,6 @@ void KAW(double x[3], double E[3], double B[3], double dt, int ts, double random
   E[0] += bhat[0] * (dummE - bhat_dot_E);
   E[1] += bhat[1] * (dummE - bhat_dot_E);
   E[2] += bhat[2] * (dummE - bhat_dot_E);
-  //*/
 
   //total E
   totalEandBsq[0] *= 0.5 * (double)nphi;
@@ -332,20 +325,20 @@ double get_dB_rms(double totalEandBsq[2]){
 }
 
 double get_aniostropy(double x[3], double E[3], double B[3], double dt, int ts, double random_phase[162], double totalEandBsq[2]){
-	//Use Newton-Secant method to obtain the anisotropy of the system.
+  //Use Newton-Secant method to obtain the anisotropy of the system.
   double dvrho;
   //number of iterations
   int iterations = 50;
   //iteration number
-	int iteration = 0;
+  int iteration = 0;
   //jump distance
-	double jump;
+  double jump;
   //we are considering the fourth k per 2010 paper
-	int i = 5;
+  int i = 5;
   //current root of the iteration
-	double root;
+  double root;
   //previous root of the iteration
-	double root_previous;
+  double root_previous;
   //use this anisotropy...just a starting value...will reduce to true value
   double anisotropy = 2. * dB;
   //define an appropriate shift
@@ -363,7 +356,7 @@ double get_aniostropy(double x[3], double E[3], double B[3], double dt, int ts, 
   //obtain dvrho
   KAW(x,E,B,dt,ts,random_phase,anisotropy,totalEandBsq);
   dvrho = get_dvrho(totalEandBsq);
-	//printf("first: %g\n",dvrho);
+  //printf("first: %g\n",dvrho);
 
   //k perpendicular (constant)
   kperp = kperp_range[0] * pow(pow((kperp_range[1] / kperp_range[0]), 1./(1.*nkperp -1.)), (i-1));
@@ -376,7 +369,7 @@ double get_aniostropy(double x[3], double E[3], double B[3], double dt, int ts, 
   }
 
   //Normalise
-	kperp /= sqrt(beta);
+  kperp /= sqrt(beta);
   kparallel /= sqrt(beta);
 
   //Omega (multiply by kparallel here)
@@ -441,7 +434,7 @@ void fill_vector(double X[3][number_of_particles], double x[3], int particle_num
 
 void update_matrix(double X[3][number_of_particles], double x[3], int particle_number){
   //used for shared memory OpenMP calculations
-	X[0][particle_number] = x[0];
+  X[0][particle_number] = x[0];
   X[1][particle_number] = x[1];
   X[2][particle_number] = x[2];
 }
@@ -500,9 +493,9 @@ int main(){
   //initialise particle count
   int particle;
   //define anisotropy value (obtained later) //anisotropy = 0.0091767732351740461;
-	double anisotropy;
+  double anisotropy;
 
-	//initialise position and velocity matrices
+  //initialise position and velocity matrices
   double X[3][number_of_particles];
   double V[3][number_of_particles];
 
@@ -522,11 +515,11 @@ int main(){
   fill_vector(X,x,0);
   anisotropy = get_aniostropy(x,E,B,dt,ts,random_phase,totalEandBsq);
   //Openfile
-	FILE *fout1 = NULL;
-	fout1 = fopen("rms_square.csv", "w");
-	//FILE *fout2 = NULL;
-	//fout2 = fopen("distribution.csv", "w");
-	//TIMEING
+  FILE *fout1 = NULL;
+  fout1 = fopen("rms_square.csv", "w");
+  //FILE *fout2 = NULL;
+  //fout2 = fopen("distribution.csv", "w");
+  //TIMEING
   double time1 = WTime();
   //TIME LOOP:
   for (ts = 0; ts < time_steps; ts++){
@@ -544,28 +537,23 @@ int main(){
       Boris(x, v, E, B, dt);
       update_matrix(X,x,particle);
       update_matrix(V,v,particle);
-      /* //This prints all partices in phase space -- a massive amount of data !!
-      if (ts%2==0){
-				fprintf(fout1,"%d, %g, %g, %g, %g, %g, %g, %g\n",particle,ts*dt,x[0],x[1],x[2],v[0],v[1],v[2]);
-      }
-      //*/
-      /*
+      // This prints all partices in phase space -- a massive amount of data !!
+      // if (ts%2==0){
+      //   fprintf(fout1,"%d, %g, %g, %g, %g, %g, %g, %g\n",particle,ts*dt,x[0],x[1],x[2],v[0],v[1],v[2]);
+      // }
       // Velocity Distribution
-      if (ts == 10000 || ts == 199999){
-        double vperp = sqrt(v[0] * v[0] + v[1] * v[1]);
-        double vpara = v[2];
-        fprintf(fout2, "%d, %g, %g\n", particle, vperp, vpara);
-      }
-      //*/
+      // if (ts == 10000 || ts == 199999){
+      //   double vperp = sqrt(v[0] * v[0] + v[1] * v[1]);
+      //   double vpara = v[2];
+      //   fprintf(fout2, "%d, %g, %g\n", particle, vperp, vpara);
+      // }
     }
-    ///*
     //MEAN VELOCITY SQUARE PER TIME STEP: (nb if (ts * dt > 100 && ts%2 == 0))
     if (ts%2 == 0){
-			double rms[2];
-			get_rms(V,rms);
-			fprintf(fout1,"%g, %g, %g\n",ts*dt,rms[0],rms[1]);
+      double rms[2];
+      get_rms(V,rms);
+      fprintf(fout1,"%g, %g, %g\n",ts*dt,rms[0],rms[1]);
     }
-    //*/
   }
   fclose(fout1);
   //fclose(fout2);
