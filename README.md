@@ -10,6 +10,13 @@ See these papers for backgroud information:
 * [Perpendicular Ion Heating by Low-Frequency Alfven-Wave Turbulence in the Solar Wind ](https://arxiv.org/pdf/1001.2069.pdf)
 * [Stochastic Proton Heating by Kinetic-Alfven-Wave Turbulence in Moderately High-Beta Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
 
+Others include:
+
+* [PERPENDICULAR ION HEATING BY REDUCED MAGNETOHYDRODYNAMIC TURBULENCE](https://arxiv.org/pdf/1309.0742.pdf)
+* [Radial evolution of stochastic heating in low-β solar wind](https://arxiv.org/pdf/1905.13355.pdf)
+* [The Enhancement of Proton Stochastic Heating in the near-Sun Solar Wind](https://arxiv.org/pdf/1912.02653.pdf)
+* [HYBRID-KINETIC SIMULATIONS OF ION HEATING IN ALFVENIC TURBULENCE ](https://arxiv.org/pdf/1901.11028.pdf)
+
 ### Dependencies
 
 * This runs with OpenMP; this is not configured with MPI, so you must run it on a shared memory system
