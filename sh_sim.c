@@ -460,7 +460,7 @@ void fill_matrices(double X[3][number_of_particles], double V[3][number_of_parti
 }
 
 void get_rms(double V[3][number_of_particles], double rms[2]){
-  //we wish to determine the rms perpendicular (to B) and parallel velocities over all of the particles
+  // we wish to determine the rms perpendicular (to B) and parallel velocities over all of the particles
   double vavg[3];
   int i,j;
   for (i = 0; i < 3; i++){
@@ -475,56 +475,58 @@ void get_rms(double V[3][number_of_particles], double rms[2]){
     rms[1] += (V[2][j] - vavg[2]) * (V[2][j] - vavg[2]);
   }
 
-  //NB: we actually want the rms-square velocities, but one can get both readily :)
-  //perp rms
-  //rms[0] = sqrt(rms[0] / (double)number_of_particles);
+  // NB: we actually want the rms-square velocities, but one can get both readily :)
+  // perp rms
+  // rms[0] = sqrt(rms[0] / (double)number_of_particles);
   rms[0] /= (double)number_of_particles;
-  //parallel rms
-  //rms[1] = sqrt(rms[1] / (double)number_of_particles);
+  // parallel rms
+  // rms[1] = sqrt(rms[1] / (double)number_of_particles);
   rms[1] /= (double)number_of_particles;
 }
 
 
 int main(){
-  //time step size
+  //  time step size
   double dt = 1e-2;
-  //time step number
+  // time step number
   int ts = 0;
-  //initialise particle count
+  // initialise particle count
   int particle;
   //define anisotropy value (obtained later) //anisotropy = 0.0091767732351740461;
   double anisotropy;
 
-  //initialise position and velocity matrices
+  // Initialise position and velocity matrices
   double X[3][number_of_particles];
   double V[3][number_of_particles];
 
-  //FILL MATRICES:
+  // FILL MATRICES:
   fill_matrices(X,V);
 
-  //INITALISE WAVE PARAMETERS: Determine random phases:
+  // INITALISE WAVE PARAMETERS: Determine random phases:
   double random_phase[162];
   for (int dim = 0; dim < 162; dim++){
     random_phase[dim] = 2 * PI * (double)rand() / (double)RAND_MAX;
   }
-  //GET ANISOTROPY:
+  
+  // GET ANISOTROPY:
   double E[3];
   double B[3];
   double x[3];
   double totalEandBsq[2];
   fill_vector(X,x,0);
   anisotropy = get_aniostropy(x,E,B,dt,ts,random_phase,totalEandBsq);
-  //Openfile
+  
+  // Openfile
   FILE *fout1 = NULL;
-  fout1 = fopen("rms_square.csv", "w");
-  //FILE *fout2 = NULL;
-  //fout2 = fopen("distribution.csv", "w");
-  //TIMEING
+  fout1 = fopen("kaw_simultion.csv", "w");
+  
+  // TIMEING
   double time1 = WTime();
-  //TIME LOOP:
+  
+  // TIME LOOP:
   for (ts = 0; ts < time_steps; ts++){
     #pragma omp parallel for
-    //PARTICLE LOOP:
+    // PARTICLE LOOP:
     for (particle = 0; particle < number_of_particles; particle++){
       double E[3];
       double B[3];
@@ -537,18 +539,12 @@ int main(){
       Boris(x, v, E, B, dt);
       update_matrix(X,x,particle);
       update_matrix(V,v,particle);
-      // This prints all partices in phase space -- a massive amount of data !!
+      // This prints all partices in phase space: Don't use while in parallel mode
       // if (ts%2==0){
       //   fprintf(fout1,"%d, %g, %g, %g, %g, %g, %g, %g\n",particle,ts*dt,x[0],x[1],x[2],v[0],v[1],v[2]);
       // }
-      // Velocity Distribution
-      // if (ts == 10000 || ts == 199999){
-      //   double vperp = sqrt(v[0] * v[0] + v[1] * v[1]);
-      //   double vpara = v[2];
-      //   fprintf(fout2, "%d, %g, %g\n", particle, vperp, vpara);
-      // }
     }
-    //MEAN VELOCITY SQUARE PER TIME STEP: (nb if (ts * dt > 100 && ts%2 == 0))
+    // MEAN VELOCITY SQUARE PER TIME STEP:
     if (ts%2 == 0){
       double rms[2];
       get_rms(V,rms);
@@ -556,7 +552,6 @@ int main(){
     }
   }
   fclose(fout1);
-  //fclose(fout2);
   double time2 = WTime();
   printf("TIME = %g\n",time2-time1);
   return 0;
