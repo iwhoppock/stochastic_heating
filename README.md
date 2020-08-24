@@ -8,14 +8,14 @@ This implements the Boris pusher to move the particles through phase space.
 See these papers for backgroud information:
 
 * [Perpendicular Ion Heating by Low-Frequency Alfven-Wave Turbulence in the Solar Wind ](https://arxiv.org/pdf/1001.2069.pdf)
-* [Stochastic Proton Heating by Kinetic-Alfven-Wave Turbulence in Moderately High-Beta Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
+* [Stochastic Proton Heating by Kinetic-Alfven-Wave Turbulence in Moderately High-β Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
 
 Others include:
 
-* [PERPENDICULAR ION HEATING BY REDUCED MAGNETOHYDRODYNAMIC TURBULENCE](https://arxiv.org/pdf/1309.0742.pdf)
+* [Perpendicular Ion Heating by Reduced Magnetohydrodynamic Turbulence](https://arxiv.org/pdf/1309.0742.pdf)
 * [Radial evolution of stochastic heating in low-β solar wind](https://arxiv.org/pdf/1905.13355.pdf)
 * [The Enhancement of Proton Stochastic Heating in the near-Sun Solar Wind](https://arxiv.org/pdf/1912.02653.pdf)
-* [HYBRID-KINETIC SIMULATIONS OF ION HEATING IN ALFVENIC TURBULENCE ](https://arxiv.org/pdf/1901.11028.pdf)
+* [Hybrid-Kinetic Simulations of Ion Heating in Alfvenic Turbulence](https://arxiv.org/pdf/1901.11028.pdf)
 
 ### Dependencies
 
