@@ -1,21 +1,25 @@
 # Stochastic Heating
 
-Test-particle simulation of stochastic heating of particles interacting with a spectrum of Kinetic Alfven waves. 
+Test-particle simulation of stochastic heating of particles interacting with a spectrum of Kinetic Alfvén waves. 
 This implements the Boris pusher to move the particles through phase space. 
 
 ## Overview
 
 See these papers for backgroud information:
 
-* [Perpendicular Ion Heating by Low-Frequency Alfven-Wave Turbulence in the Solar Wind ](https://arxiv.org/pdf/1001.2069.pdf)
-* [Stochastic Proton Heating by Kinetic-Alfven-Wave Turbulence in Moderately High-β Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
+* [Perpendicular Ion Heating by Low-Frequency Alfvén-Wave Turbulence in the Solar Wind ](https://arxiv.org/pdf/1001.2069.pdf)
+* [Stochastic Proton Heating by Kinetic-Alfvén-Wave Turbulence in Moderately High-β Plasmas](https://arxiv.org/pdf/1811.08873.pdf)
 
 Others include:
 
 * [Perpendicular Ion Heating by Reduced Magnetohydrodynamic Turbulence](https://arxiv.org/pdf/1309.0742.pdf)
 * [Radial evolution of stochastic heating in low-β solar wind](https://arxiv.org/pdf/1905.13355.pdf)
 * [The Enhancement of Proton Stochastic Heating in the near-Sun Solar Wind](https://arxiv.org/pdf/1912.02653.pdf)
-* [Hybrid-Kinetic Simulations of Ion Heating in Alfvenic Turbulence](https://arxiv.org/pdf/1901.11028.pdf)
+* [Hybrid-Kinetic Simulations of Ion Heating in Alfvénic Turbulence](https://arxiv.org/pdf/1901.11028.pdf)
+
+Lastly, much of the code uses analytical expressions of Kinetic Alfvén Waves, which are phenomenally treated in this 1999 work by Joe Hollweg:
+
+* [Kinetic Alfvén wave revisited](https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1029/1998JA900132)
 
 ### Dependencies
 
